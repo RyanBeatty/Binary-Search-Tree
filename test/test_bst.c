@@ -88,6 +88,40 @@ test_insert() {
 	return 0;
 }
 
+static char *
+test_search() {
+	Node *bst = NULL;
+
+	mu_assert("failed: test_search: empty tree",
+			  search(bst, 5) == 0);
+
+	bst = new_bst_node(5);
+	insert(bst, 3);
+	insert(bst, 2);
+	insert(bst, 4);
+	insert(bst, 8);
+	insert(bst, 7);
+	insert(bst, 9);
+
+	mu_assert("failed: test_search: search 5",
+			  search(bst, 5) == 1);
+	mu_assert("failed: test_search: search 3",
+			  search(bst, 3) == 1);
+	mu_assert("failed: test_search: search 2",
+			  search(bst, 2) == 1);
+	mu_assert("failed: test_search: search 4",
+			  search(bst, 4) == 1);
+	mu_assert("failed: test_search: search 8",
+			  search(bst, 8) == 1);
+	mu_assert("failed: test_search: search 7",
+			  search(bst, 7) == 1);
+	mu_assert("failed: test_search: search 9",
+			  search(bst, 9) == 1);
+	mu_assert("failed: test_search: search 10",
+			  search(bst, 10) == 0);
+	return 0;
+}
+
 static char * all_tests() {
 	/*
 	run all tests in the suite
@@ -95,6 +129,7 @@ static char * all_tests() {
 	mu_run_test(test_new_bst);
 	mu_run_test(test_insert_null_head);
 	mu_run_test(test_insert);
+	mu_run_test(test_search);
 	return 0;
 }
 

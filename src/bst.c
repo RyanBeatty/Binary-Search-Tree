@@ -21,6 +21,7 @@ int
 insert(Node *head, int data) {
 	// inserts new node into tree
 	// returns 1 on success or -1 on failure
+	// doubles as search too
 
 	// head is NULL so signal failure
 	if(head == NULL)
@@ -38,10 +39,11 @@ insert(Node *head, int data) {
 	Node *cur_node = head;
 	while(1) 
 	{
-		// move down left child
+		// data is already in tree
 		if(new_node->data == cur_node->data)
 			return 1;
-		
+
+		// move down left child
 		if(new_node->data < cur_node->data) 
 		{
 			// found place to insert node
@@ -66,5 +68,73 @@ insert(Node *head, int data) {
 			// continue searching
 			cur_node = cur_node->right;
 		} 
+	}
+}
+
+
+int
+search(Node *root, int target) {
+	/* Search through tree for target
+	   Return 1 if target is in tree or
+	   0 otherwise */
+	Node *cur_node = root;
+	while(cur_node != NULL)
+	{
+		// found target
+		if(target == cur_node->data)
+			return 1;
+
+		// move down left subtree
+		else if(target < cur_node->data)
+			cur_node = cur_node->left;
+
+		// move down right subtree
+		else
+			cur_node = cur_node->right;
+	}
+
+	return 0;
+}
+
+
+
+
+
+
+int
+delete(Node **bst, int data) {
+
+	if(bst == NULL)
+		return -1;
+
+	Node *cur_node = *bst;
+
+	if(cur_node->data == data)
+	{
+		if(cur_node->left == NULL && cur_node->right == NULL)
+			cur_node = NULL;
+
+		else if(cur_node->left == NULL)
+			cur_node = cur_node->right;
+
+		else if(cur_node->right == NULL)
+			cur_node = cur_node->left;
+
+		else
+
+
+			return 1;
+	}
+}
+
+int
+find_smallest_in_right_subtree(Node *root) {
+
+	while(1)
+	{
+		if(root->left == NULL)
+			return root->data;
+
+		root = root->left;
 	}
 }

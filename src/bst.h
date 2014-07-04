@@ -11,5 +11,6 @@ typedef struct Node
 
 Node *new_bst_node(int data);
 int insert(Node *head, int data);
+int search(Node *root, int target);
 
 #endif

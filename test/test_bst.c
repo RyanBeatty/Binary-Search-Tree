@@ -4,33 +4,6 @@
 
 int tests_run = 0;
 
-// int foo = 7;
-// int bar = 4;
-
-// static char * test_foo() {
-//  mu_assert("error, foo != 7", foo == 7);
-//  return 0;
-// }
-
-// static char * test_bar() {
-//  mu_assert("error, bar != 4", bar == 4);
-//  return 0;
-// }
-
-// static
-// char *
-// test_return3() {
-//     mu_assert("return3 error", return3() == 2);
-//     return 0;
-// }
-
-// static char * all_tests() {
-//  mu_run_test(test_foo);
-//  mu_run_test(test_bar);
-//  mu_run_test(test_return3);
-//  return 0;
-// }
-
 static char *
 test_new_bst() {
 	// test that new_bst returns a new non NULL head Node
@@ -85,6 +58,17 @@ test_insert() {
 	mu_assert("failed: test_insert: insert 8",
 			  bst->right->right->data == 8);
 
+	insert(bst, 0);
+	insert(bst, -2);
+
+	mu_assert("failed: test_insert: insert 0",
+			  search(bst, 0) == 1);
+
+	mu_assert("failed: test_insert: insert -2",
+			  search(bst, -2) == 1);
+
+
+
 	return 0;
 }
 
@@ -122,6 +106,31 @@ test_search() {
 	return 0;
 }
 
+static char *
+test_find_smallest() {
+	Node *bst = new_bst_node(5);
+
+	mu_assert("failed: test_find_smallest: should return 5",
+			  find_smallest(bst) == 5);
+
+	insert(bst, 6);
+	mu_assert("failed: test_find_smallest: should return 5",
+			  find_smallest(bst) == 5);
+
+	insert(bst, 3);
+	mu_assert("failed: test_find_smallest: should return 3",
+			  find_smallest(bst) == 3);
+
+	insert(bst, 4);
+	mu_assert("failed: test_find_smallest: should return 3",
+			  find_smallest(bst) == 3);
+
+	insert(bst, 2);
+	mu_assert("failed: test_find_smallest: should return 2",
+			  find_smallest(bst) == 2);
+	return 0;
+}
+
 static char * all_tests() {
 	/*
 	run all tests in the suite
@@ -130,6 +139,7 @@ static char * all_tests() {
 	mu_run_test(test_insert_null_head);
 	mu_run_test(test_insert);
 	mu_run_test(test_search);
+	mu_run_test(test_find_smallest);
 	return 0;
 }
 

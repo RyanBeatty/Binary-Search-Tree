@@ -128,7 +128,7 @@ delete(Node **bst, int data) {
 }
 
 int
-find_smallest_in_right_subtree(Node *root) {
+find_smallest(Node *root) {
 
 	while(1)
 	{

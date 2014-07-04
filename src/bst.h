@@ -13,4 +13,7 @@ Node *new_bst_node(int data);
 int insert(Node *head, int data);
 int search(Node *root, int target);
 
+
+int find_smallest(Node *root);
+
 #endif

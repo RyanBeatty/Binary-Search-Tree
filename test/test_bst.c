@@ -44,11 +44,57 @@ test_new_bst() {
 	return 0;
 }
 
+static char *
+test_insert_null_head() {
+	// test that insert() fails when passed a NULL head
+
+	mu_assert("failed: test_insert_null_head: insert() != -1",
+			  insert(NULL, 5) == -1);
+	return 0;
+}
+
+static char *
+test_insert() {
+
+	Node *bst = new_bst_node(5);
+
+	insert(bst, 5);
+	mu_assert("failed: test_insert: insert 5",
+			  bst->left == NULL && bst->right == NULL);
+
+	insert(bst, 3);
+	insert(bst, 7);
+
+	mu_assert("failed: test_insert: bst->left->data != 4",
+			  bst->left->data == 3);
+	mu_assert("failed: test_insert: bst->right->data != 6",
+			  bst->right->data == 7);
+
+
+	insert(bst, 2);
+	insert(bst, 4);
+	insert(bst, 6);
+	insert(bst, 8);
+
+	mu_assert("failed: test_insert: insert 2",
+			  bst->left->left->data == 2);
+	mu_assert("failed: test_insert: insert 2",
+			  bst->left->right->data == 4);
+	mu_assert("failed: test_insert: insert 6",
+			  bst->right->left->data == 6);
+	mu_assert("failed: test_insert: insert 8",
+			  bst->right->right->data == 8);
+
+	return 0;
+}
+
 static char * all_tests() {
 	/*
 	run all tests in the suite
 	*/
 	mu_run_test(test_new_bst);
+	mu_run_test(test_insert_null_head);
+	mu_run_test(test_insert);
 	return 0;
 }
 

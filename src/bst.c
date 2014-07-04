@@ -16,3 +16,55 @@ new_bst_node(int data) {
 	new_bst->right = NULL;
 	return new_bst;
 }
+
+int
+insert(Node *head, int data) {
+	// inserts new node into tree
+	// returns 1 on success or -1 on failure
+
+	// head is NULL so signal failure
+	if(head == NULL)
+		return -1;
+
+	// set up new node to be inserted
+	Node *new_node = new_bst_node(data);
+
+	// node creation failed, return -1
+	if(new_node == NULL)
+		return -1;
+
+	// iterate through tree, searching for place to
+	// insert new node
+	Node *cur_node = head;
+	while(1) 
+	{
+		// move down left child
+		if(new_node->data == cur_node->data)
+			return 1;
+		
+		if(new_node->data < cur_node->data) 
+		{
+			// found place to insert node
+			if(cur_node->left == NULL) {
+				cur_node->left = new_node;
+				return 1;
+			}
+
+			// continue searching
+			cur_node = cur_node->left;
+		}
+
+		// move down right child
+		else
+		{
+			// found place to insert node
+			if(cur_node->right == NULL) {
+				cur_node->right = new_node;
+				return 1;
+			}
+
+			// continue searching
+			cur_node = cur_node->right;
+		} 
+	}
+}

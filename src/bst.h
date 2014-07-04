@@ -10,5 +10,6 @@ typedef struct Node
 } Node;
 
 Node *new_bst_node(int data);
+int insert(Node *head, int data);
 
 #endif

@@ -1,9 +1,6 @@
 CC = gcc
 CFlags = -Wall
 
-
-# build_test: ./test/minunit_example.c ./src/ex.o
-# 	gcc -Wall -o test ./test/test_bst.c ./src/ex.o
 test: build_test
 	./test/suite
 

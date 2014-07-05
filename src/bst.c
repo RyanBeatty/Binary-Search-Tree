@@ -98,89 +98,27 @@ search(Node *root, int target) {
 }
 
 
-// int
-// delete(Node **root, int target) {
-// 	// searches through tree and deletes
-// 	// node with target data.
-// 	// returns 1 on success or -1 on failure
-
-// 	// null tree so return failure
-// 	if(root == NULL)
-// 		return -1;
-
-// 	Node *cur_node = *root;
-
-// 	if(cur_node->data == target)
-// 	{
-// 		// node has no children
-// 		if(cur_node->left == NULL && cur_node->right == NULL)
-// 			cur_node = NULL;
-
-// 		// node has only right child
-// 		else if(cur_node->left == NULL)
-// 			cur_node = cur_node->right;
-
-// 		// node has only left child
-// 		else if(cur_node->right == NULL)
-// 			cur_node = cur_node->left;
-
-// 		//node has 2 children
-// 		else
-// 		{
-// 			// replace node with min node data in right subtree
-// 			// then remove min node in right subtree
-// 			int min = find_minimum(cur_node->right);
-// 			cur_node->data = min;
-
-// 			if(cur_node->right->data == min)
-// 				cur_node
-
-
-// 		}
-
-
-// 			return 1;
-// 	}
-// }
-
-// int
-// delete(Node *root, int target) {
-
-// 	// target does not exist in tree
-// 	if(root == NULL)
-// 		return 0;
-
-// 	if(root )
-
-// 	// if(root->data == target)
-// 	// {
-
-// 	// }
-
-// 	// // move down left subtree
-// 	// else if(root->data < target)
-// 	// 	delete(root->left, target);
-
-// 	// // move down right subtree
-// 	// else
-// 	// 	delete(root->right, target);
-// }
-
 int
 delete(Node **root, int target) {
+	/* Recursively search through tree and
+	   Remove Node with target data */
 
+	// Safety check, signal failure to remove
 	if(root == NULL || *root == NULL)
 		return -1;
 
+	// found target, so remove node
 	if((*root)->data == target)
 	{
 
+		// node has no children, just delete node
 		if((*root)->left == NULL && (*root)->right == NULL)
 		{
 			free(*root);
 			*root = NULL;
 		}
 
+		// node has only right child, so replace with right
 		else if((*root)->left == NULL)
 		{
 			Node *cur_node = *root;
@@ -188,6 +126,7 @@ delete(Node **root, int target) {
 			free(cur_node);
 		}
 
+		// node has only left child, so replace with left
 		else if((*root)->right == NULL)
 		{
 			Node *cur_node = *root;
@@ -195,12 +134,21 @@ delete(Node **root, int target) {
 			free(cur_node);
 		}
 
+		// node has two children
+		else
+		{
+			(*root)->data = find_minimum((*root)->right);
+			return delete(&((*root)->right), (*root)->data);
+		}
+
 		return 1;
 	}
 
+	// recurse down left subtree
 	else if(target < (*root)->data)
 		return delete(&((*root)->left), target);
 
+	// recurse down right subtree
 	else
 		return delete(&((*root)->right), target);
 }

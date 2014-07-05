@@ -209,6 +209,74 @@ test_delete_one_child() {
 }
 
 static char *
+test_delete_two_children_head() {
+	Node *bst = new_bst_node(5);
+	insert(bst, 4);
+	insert(bst, 6);
+
+	mu_assert("failed: test_delete: delete head w/ 2 children",
+			  delete(&bst, 5) == 1);
+	mu_assert("failed: test_delete: check delete head w/ 2 children",
+			  bst->data == 6 && bst->left->data == 4 && bst->right == NULL);
+
+	insert(bst, 8);
+	insert(bst, 7);
+	insert(bst, 9);
+
+	mu_assert("failed: test_delete: delete head w/ 2 children",
+			  delete(&bst, 6) == 1);
+	mu_assert("failed: test_delete: check delete head w/ 2 children",
+			  bst->data == 7 && bst->left->data == 4);
+	mu_assert("failed: test_delete: check delete head w/ 2 children",
+			  bst->right->data == 8 && bst->right->right->data == 9);
+	mu_assert("failed: test_delete: check delete head w/ 2 children",
+			  bst->right->left == NULL);
+
+
+	return 0;
+}
+
+static char *
+test_delete_two_children() {
+
+	Node *bst = new_bst_node(6);
+
+	insert(bst, 4);
+	insert(bst, 8);
+	insert(bst, 7);
+	insert(bst, 9);
+
+	mu_assert("failed: test_delete: delete right w/ 2 children",
+			  delete(&bst, 8) == 1);
+	mu_assert("failed: test_delete: check delete right w/ 2 children",
+			  bst->data == 6 && bst->left->data == 4);
+	mu_assert("failed: test_delete: check delete right w/ 2 children",
+			  bst->right->data == 9 && bst->right->left->data == 7);
+	mu_assert("failed: test_delete: check delete right w/ 2 children",
+			  bst->right->right == NULL);
+
+	bst = new_bst_node(10);
+	insert(bst, 5);
+	insert(bst, 8);
+	insert(bst, 2);
+	insert(bst, 7);
+	insert(bst, 6);
+	insert(bst, 9);
+
+	mu_assert("failed: test_delete: delete left w/ 2 children",
+			  delete(&bst, 5) == 1);
+	mu_assert("failed: test_delete: check delete left w/ 2 children",
+			  bst->left->data == 6 && bst->left->left->data == 2);
+	mu_assert("failed: test_delete: check delete left w/ 2 children",
+			  bst->left->right->data == 8 && bst->left->right->left->data == 7);
+	mu_assert("failed: test_delete: check delete left w/ 2 children",
+			  bst->left->right->right->data == 9);
+
+
+	return 0;
+}
+
+static char *
 all_tests() {
 	/*
 	run all tests in the suite
@@ -220,6 +288,8 @@ all_tests() {
 	mu_run_test(test_find_minimum);
 	mu_run_test(test_delete_no_children);
 	mu_run_test(test_delete_one_child);
+	mu_run_test(test_delete_two_children_head);
+	mu_run_test(test_delete_two_children);
 	return 0;
 }
 

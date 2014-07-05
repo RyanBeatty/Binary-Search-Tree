@@ -14,6 +14,8 @@ test_new_bst() {
 			  bst != NULL);
 	mu_assert("failed: test_new_bst: node->data != 5",
 			  bst->data == 5);
+
+	delete_bst_tree(&bst);
 	return 0;
 }
 
@@ -68,7 +70,7 @@ test_insert() {
 			  search(bst, -2) == 1);
 
 
-
+	delete_bst_tree(&bst);
 	return 0;
 }
 
@@ -103,6 +105,8 @@ test_search() {
 			  search(bst, 9) == 1);
 	mu_assert("failed: test_search: search 10",
 			  search(bst, 10) == 0);
+
+	delete_bst_tree(&bst);
 	return 0;
 }
 
@@ -128,6 +132,8 @@ test_find_minimum() {
 	insert(bst, 2);
 	mu_assert("failed: test_find_minimum: should return 2",
 			  find_minimum(bst) == 2);
+
+	delete_bst_tree(&bst);
 	return 0;
 }
 
@@ -144,6 +150,7 @@ test_delete_no_children() {
 	mu_assert("failed: test_delete: delete root, no children",
 			  bst == NULL);
 
+	delete_bst_tree(&bst);
 	bst = new_bst_node(6);
 	insert(bst, 4);
 	insert(bst, 7);
@@ -156,6 +163,7 @@ test_delete_no_children() {
 	mu_assert("failed: test_delete: delete left child",
 			  bst->right == NULL);
 
+	delete_bst_tree(&bst);
 	return 0;
 }
 
@@ -200,6 +208,8 @@ test_delete_one_child() {
 	delete(&bst, 7);
 	mu_assert("failed: test_delete: check delete 7",
 			  bst->right->data == 9);
+
+	delete_bst_tree(&bst);
 	return 0;
 }
 
@@ -225,7 +235,7 @@ test_delete_two_children_head() {
 	mu_assert("failed: test_delete: check delete head w/ 2 children",
 			  bst->right->left == NULL);
 
-
+	delete_bst_tree(&bst);
 	return 0;
 }
 
@@ -247,6 +257,7 @@ test_delete_two_children() {
 	mu_assert("failed: test_delete: check delete right w/ 2 children",
 			  bst->right->right == NULL);
 
+	delete_bst_tree(&bst);
 	bst = new_bst_node(10);
 	insert(bst, 5);
 	insert(bst, 8);
@@ -263,7 +274,7 @@ test_delete_two_children() {
 	mu_assert("failed: test_delete: check delete left w/ 2 children",
 			  bst->left->right->right->data == 9);
 
-
+	delete_bst_tree(&bst);
 	return 0;
 }
 

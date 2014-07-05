@@ -19,6 +19,7 @@ new_bst_node(int data) {
 
 void
 delete_bst_tree(Node **root) {
+	// deletes entire bst tree, changes root to NULL
 
 	if(root == NULL)
 		return ;

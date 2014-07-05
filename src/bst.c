@@ -74,9 +74,10 @@ insert(Node *head, int data) {
 
 int
 search(Node *root, int target) {
-	/* Search through tree for target
-	   Return 1 if target is in tree or
-	   0 otherwise */
+	// Search through tree for target
+	// Return 1 if target is in tree or
+	// 0 otherwise
+
 	Node *cur_node = root;
 	while(cur_node != NULL)
 	{
@@ -97,38 +98,117 @@ search(Node *root, int target) {
 }
 
 
+// int
+// delete(Node **root, int target) {
+// 	// searches through tree and deletes
+// 	// node with target data.
+// 	// returns 1 on success or -1 on failure
+
+// 	// null tree so return failure
+// 	if(root == NULL)
+// 		return -1;
+
+// 	Node *cur_node = *root;
+
+// 	if(cur_node->data == target)
+// 	{
+// 		// node has no children
+// 		if(cur_node->left == NULL && cur_node->right == NULL)
+// 			cur_node = NULL;
+
+// 		// node has only right child
+// 		else if(cur_node->left == NULL)
+// 			cur_node = cur_node->right;
+
+// 		// node has only left child
+// 		else if(cur_node->right == NULL)
+// 			cur_node = cur_node->left;
+
+// 		//node has 2 children
+// 		else
+// 		{
+// 			// replace node with min node data in right subtree
+// 			// then remove min node in right subtree
+// 			int min = find_minimum(cur_node->right);
+// 			cur_node->data = min;
+
+// 			if(cur_node->right->data == min)
+// 				cur_node
 
 
+// 		}
 
+
+// 			return 1;
+// 	}
+// }
+
+// int
+// delete(Node *root, int target) {
+
+// 	// target does not exist in tree
+// 	if(root == NULL)
+// 		return 0;
+
+// 	if(root )
+
+// 	// if(root->data == target)
+// 	// {
+
+// 	// }
+
+// 	// // move down left subtree
+// 	// else if(root->data < target)
+// 	// 	delete(root->left, target);
+
+// 	// // move down right subtree
+// 	// else
+// 	// 	delete(root->right, target);
+// }
 
 int
-delete(Node **bst, int data) {
+delete(Node **root, int target) {
 
-	if(bst == NULL)
+	if(root == NULL || *root == NULL)
 		return -1;
 
-	Node *cur_node = *bst;
-
-	if(cur_node->data == data)
+	if((*root)->data == target)
 	{
-		if(cur_node->left == NULL && cur_node->right == NULL)
-			cur_node = NULL;
 
-		else if(cur_node->left == NULL)
-			cur_node = cur_node->right;
+		if((*root)->left == NULL && (*root)->right == NULL)
+		{
+			free(*root);
+			*root = NULL;
+		}
 
-		else if(cur_node->right == NULL)
-			cur_node = cur_node->left;
+		else if((*root)->left == NULL)
+		{
+			Node *cur_node = *root;
+			*root = (*root)->right;
+			free(cur_node);
+		}
 
-		else
+		else if((*root)->right == NULL)
+		{
+			Node *cur_node = *root;
+			*root = (*root)->left;
+			free(cur_node);
+		}
 
-
-			return 1;
+		return 1;
 	}
+
+	else if(target < (*root)->data)
+		return delete(&((*root)->left), target);
+
+	else
+		return delete(&((*root)->right), target);
 }
 
 int
-find_smallest(Node *root) {
+find_minimum(Node *root) {
+	/* returns smallest data element in tree
+	   NOTE: breaks if passed a NULL root node */
 
 	while(1)
 	{
@@ -138,3 +218,4 @@ find_smallest(Node *root) {
 		root = root->left;
 	}
 }
+

@@ -107,31 +107,109 @@ test_search() {
 }
 
 static char *
-test_find_smallest() {
+test_find_minimum() {
 	Node *bst = new_bst_node(5);
 
-	mu_assert("failed: test_find_smallest: should return 5",
-			  find_smallest(bst) == 5);
+	mu_assert("failed: test_find_minimum: should return 5",
+			  find_minimum(bst) == 5);
 
 	insert(bst, 6);
-	mu_assert("failed: test_find_smallest: should return 5",
-			  find_smallest(bst) == 5);
+	mu_assert("failed: test_find_minimum: should return 5",
+			  find_minimum(bst) == 5);
 
 	insert(bst, 3);
-	mu_assert("failed: test_find_smallest: should return 3",
-			  find_smallest(bst) == 3);
+	mu_assert("failed: test_find_minimum: should return 3",
+			  find_minimum(bst) == 3);
 
 	insert(bst, 4);
-	mu_assert("failed: test_find_smallest: should return 3",
-			  find_smallest(bst) == 3);
+	mu_assert("failed: test_find_minimum: should return 3",
+			  find_minimum(bst) == 3);
 
 	insert(bst, 2);
-	mu_assert("failed: test_find_smallest: should return 2",
-			  find_smallest(bst) == 2);
+	mu_assert("failed: test_find_minimum: should return 2",
+			  find_minimum(bst) == 2);
 	return 0;
 }
 
-static char * all_tests() {
+static char *
+test_delete_no_children() {
+
+	mu_assert("failed: test_delete: delete, null root",
+			  delete(NULL, 0) == -1);
+	
+	Node *bst = new_bst_node(5);
+
+	mu_assert("failed: test_delete: delete not in tree <4>",
+			  delete(&bst, 4) == -1);
+	mu_assert("failed: test_delete: delete not in tree",
+			  delete(&bst, 6) == -1);
+	mu_assert("failed: test_delete: delete root, no children",
+			  delete(&bst, 5) == 1);
+	mu_assert("failed: test_delete: delete root, no children",
+			  bst == NULL);
+
+	bst = new_bst_node(6);
+	insert(bst, 4);
+	insert(bst, 7);
+
+	mu_assert("failed: test_delete: delete left child",
+			  delete(&bst, 4) == 1);
+	mu_assert("failed: test_delete: delete left child",
+			  bst->left == NULL);
+	mu_assert("failed: test_delete: delete left child",
+			  delete(&bst, 7) == 1);
+	mu_assert("failed: test_delete: delete left child",
+			  bst->right == NULL);
+
+	return 0;
+}
+
+static char *
+test_delete_one_child() {
+
+	Node *bst = new_bst_node(5);
+	insert(bst, 3);
+	mu_assert("failed: test_delete: delete root, w/ left child",
+			  delete(&bst, 5) == 1);
+	mu_assert("failed: test_delete: check delete root, w/ left child",
+			  bst->data == 3);
+
+	insert(bst, 6);
+	mu_assert("failed: test_delete: delete root, w/ right child",
+			  delete(&bst, 3) == 1);
+	mu_assert("failed: test_delete: check delete root, w/ right child",
+			  bst->data == 6);
+
+	insert(bst, 4);
+	insert(bst, 3);
+	mu_assert("failed: test_delete: delete, 4",
+			  delete(&bst, 4) == 1);
+	mu_assert("failed: test_delete: check delete 4",
+			  bst->left->data == 3);
+
+	insert(bst, 4);
+	mu_assert("failed: test_delete: delete, 3",
+			  delete(&bst, 3) == 1);
+	mu_assert("failed: test_delete: check delete 3",
+			  bst->left->data == 4);
+
+	insert(bst, 8);
+	insert(bst, 7);
+	mu_assert("failed: test_delete: delete, 8",
+			  delete(&bst, 8) == 1);
+	mu_assert("failed: test_delete: check delete 8",
+			  bst->right->data == 7);
+
+	insert(bst, 9);
+	mu_assert("failed: test_delete: delete, 7",
+			  delete(&bst, 7) == 1);
+	mu_assert("failed: test_delete: check delete 7",
+			  bst->right->data == 9);
+	return 0;
+}
+
+static char *
+all_tests() {
 	/*
 	run all tests in the suite
 	*/
@@ -139,7 +217,9 @@ static char * all_tests() {
 	mu_run_test(test_insert_null_head);
 	mu_run_test(test_insert);
 	mu_run_test(test_search);
-	mu_run_test(test_find_smallest);
+	mu_run_test(test_find_minimum);
+	mu_run_test(test_delete_no_children);
+	mu_run_test(test_delete_one_child);
 	return 0;
 }
 

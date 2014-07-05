@@ -17,11 +17,21 @@ new_bst_node(int data) {
 	return new_bst;
 }
 
+void
+delete_bst_tree(Node **root) {
+
+	if(root == NULL)
+		return ;
+
+	while(*root != NULL)
+		delete(root, (*root)->data);
+}
+
 int
 insert(Node *head, int data) {
 	// inserts new node into tree
 	// returns 1 on success or -1 on failure
-	// doubles as search too
+	// prevents duplicates
 
 	// head is NULL so signal failure
 	if(head == NULL)
@@ -98,14 +108,13 @@ search(Node *root, int target) {
 }
 
 
-int
+void
 delete(Node **root, int target) {
 	/* Recursively search through tree and
 	   Remove Node with target data */
 
-	// Safety check, signal failure to remove
 	if(root == NULL || *root == NULL)
-		return -1;
+		return ;
 
 	// found target, so remove node
 	if((*root)->data == target)
@@ -138,19 +147,17 @@ delete(Node **root, int target) {
 		else
 		{
 			(*root)->data = find_minimum((*root)->right);
-			return delete(&((*root)->right), (*root)->data);
+			delete(&((*root)->right), (*root)->data);
 		}
-
-		return 1;
 	}
 
 	// recurse down left subtree
 	else if(target < (*root)->data)
-		return delete(&((*root)->left), target);
+		delete(&((*root)->left), target);
 
 	// recurse down right subtree
 	else
-		return delete(&((*root)->right), target);
+		delete(&((*root)->right), target);
 }
 
 int

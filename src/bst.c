@@ -17,9 +17,26 @@ new_bst_node(int data) {
 	return new_bst;
 }
 
+// Node *
+// build_bst_tree(int *data_set) {
+
+// 	Node *root = NULL;
+// 	while(data_set != NULL)
+// 	{
+// 		if(insert(root, *data_set) < 0)
+// 		{
+// 			delete_bst_tree(&root);
+// 			return NULL;
+// 		}
+// 	}
+
+// 	return root;
+// }
+
 void
 delete_bst_tree(Node **root) {
-	// deletes entire bst tree, changes root to NULL
+	// deletes entire bst tree
+	// root should be NULL afterwards
 
 	if(root == NULL)
 		return ;
@@ -174,4 +191,3 @@ find_minimum(Node *root) {
 		root = root->left;
 	}
 }
-

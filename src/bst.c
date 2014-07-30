@@ -17,21 +17,25 @@ new_bst_node(int data) {
 	return new_bst;
 }
 
-// Node *
-// build_bst_tree(int *data_set) {
+Node *
+build_bst_tree(int *data_set, int set_size) {
 
-// 	Node *root = NULL;
-// 	while(data_set != NULL)
-// 	{
-// 		if(insert(root, *data_set) < 0)
-// 		{
-// 			delete_bst_tree(&root);
-// 			return NULL;
-// 		}
-// 	}
+	if(data_set == NULL)
+		return NULL;
 
-// 	return root;
-// }
+	Node *root = NULL;
+	int i = 0;
+	for(; i < set_size; ++i)
+	{
+		if(insert(root, data_set[i]) < 0)
+		{
+			delete_bst_tree(&root);
+			return NULL;
+		}
+	}
+
+	return root;
+}
 
 void
 delete_bst_tree(Node **root) {
@@ -45,58 +49,92 @@ delete_bst_tree(Node **root) {
 		delete(root, (*root)->data);
 }
 
+// int
+// insert(Node *head, int data) {
+// 	// inserts new node into tree
+// 	// returns 1 on success or -1 on failure
+// 	// prevents duplicates
+
+// 	// head is NULL so signal failure
+// 	if(head == NULL)
+// 		return -1;
+
+// 	// set up new node to be inserted
+// 	Node *new_node = new_bst_node(data);
+
+// 	// node creation failed, return -1
+// 	if(new_node == NULL)
+// 		return -1;
+
+// 	// iterate through tree, searching for place to
+// 	// insert new node
+// 	Node *cur_node = head;
+// 	while(1) 
+// 	{
+// 		// data is already in tree
+// 		if(new_node->data == cur_node->data)
+// 			return 1;
+
+// 		// move down left child
+// 		if(new_node->data < cur_node->data) 
+// 		{
+// 			// found place to insert node
+// 			if(cur_node->left == NULL) {
+// 				cur_node->left = new_node;
+// 				return 1;
+// 			}
+
+// 			// continue searching
+// 			cur_node = cur_node->left;
+// 		}
+
+// 		// move down right child
+// 		else
+// 		{
+// 			// found place to insert node
+// 			if(cur_node->right == NULL) {
+// 				cur_node->right = new_node;
+// 				return 1;
+// 			}
+
+// 			// continue searching
+// 			cur_node = cur_node->right;
+// 		} 
+// 	}
+// }
+
 int
-insert(Node *head, int data) {
-	// inserts new node into tree
-	// returns 1 on success or -1 on failure
-	// prevents duplicates
+insert(Node **cur_node, int target) {
+	/*
+	* recursively searches through the tree
+	* and inserts target into correct position
+	*
+	* RETURNS: -1 on failure and 1 on success
+	*/
 
-	// head is NULL so signal failure
-	if(head == NULL)
+	// invalid input
+	if(cur_node == NULL)
 		return -1;
 
-	// set up new node to be inserted
-	Node *new_node = new_bst_node(data);
-
-	// node creation failed, return -1
-	if(new_node == NULL)
-		return -1;
-
-	// iterate through tree, searching for place to
-	// insert new node
-	Node *cur_node = head;
-	while(1) 
+	// found place to insert target
+	if(*cur_node == NULL)
 	{
-		// data is already in tree
-		if(new_node->data == cur_node->data)
-			return 1;
-
-		// move down left child
-		if(new_node->data < cur_node->data) 
-		{
-			// found place to insert node
-			if(cur_node->left == NULL) {
-				cur_node->left = new_node;
-				return 1;
-			}
-
-			// continue searching
-			cur_node = cur_node->left;
-		}
-
-		// move down right child
-		else
-		{
-			// found place to insert node
-			if(cur_node->right == NULL) {
-				cur_node->right = new_node;
-				return 1;
-			}
-
-			// continue searching
-			cur_node = cur_node->right;
-		} 
+		// create new node, add to tree, and check for failure
+		*cur_node = new_bst_node(target);
+		return *cur_node == NULL ? -1: 1;
 	}
+
+	// target already in tree
+	else if(target == (*cur_node)->data)
+		return 1;
+
+	// move down left subtree
+	else if(target < (*cur_node)->data)
+		return insert(&((*cur_node)->left), target);
+
+	// move down right subtree
+	else
+		return insert(&((*cur_node)->right), target);
 }
 
 

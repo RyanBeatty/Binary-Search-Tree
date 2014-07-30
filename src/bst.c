@@ -27,7 +27,7 @@ build_bst_tree(int *data_set, int set_size) {
 	int i = 0;
 	for(; i < set_size; ++i)
 	{
-		if(insert(root, data_set[i]) < 0)
+		if(insert(&root, data_set[i]) < 0)
 		{
 			delete_bst_tree(&root);
 			return NULL;

@@ -188,159 +188,159 @@ test_delete_no_children() {
 	return 0;
 }
 
-// static char *
-// test_delete_one_child() {
+static char *
+test_delete_one_child() {
 
-// 	Node *bst = new_bst_node(5);
-// 	insert(bst, 3);
+	Node *bst = new_bst_node(5);
+	insert(&bst, 3);
 
-// 	delete(&bst, 5);
-// 	mu_assert("failed: test_delete: check delete root, w/ left child",
-// 			  bst->data == 3);
+	delete(&bst, 5);
+	mu_assert("failed: test_delete: check delete root, w/ left child",
+			  bst->data == 3);
 
-// 	insert(bst, 6);
+	insert(&bst, 6);
 
-// 	delete(&bst, 3);
-// 	mu_assert("failed: test_delete: check delete root, w/ right child",
-// 			  bst->data == 6);
+	delete(&bst, 3);
+	mu_assert("failed: test_delete: check delete root, w/ right child",
+			  bst->data == 6);
 
-// 	insert(bst, 4);
-// 	insert(bst, 3);
+	insert(&bst, 4);
+	insert(&bst, 3);
 
-// 	delete(&bst, 4);
-// 	mu_assert("failed: test_delete: check delete 4",
-// 			  bst->left->data == 3);
+	delete(&bst, 4);
+	mu_assert("failed: test_delete: check delete 4",
+			  bst->left->data == 3);
 
-// 	insert(bst, 4);
+	insert(&bst, 4);
 
-// 	delete(&bst, 3);
-// 	mu_assert("failed: test_delete: check delete 3",
-// 			  bst->left->data == 4);
+	delete(&bst, 3);
+	mu_assert("failed: test_delete: check delete 3",
+			  bst->left->data == 4);
 
-// 	insert(bst, 8);
-// 	insert(bst, 7);
+	insert(&bst, 8);
+	insert(&bst, 7);
 
-// 	delete(&bst, 8);
-// 	mu_assert("failed: test_delete: check delete 8",
-// 			  bst->right->data == 7);
+	delete(&bst, 8);
+	mu_assert("failed: test_delete: check delete 8",
+			  bst->right->data == 7);
 
-// 	insert(bst, 9);
+	insert(&bst, 9);
 
-// 	delete(&bst, 7);
-// 	mu_assert("failed: test_delete: check delete 7",
-// 			  bst->right->data == 9);
+	delete(&bst, 7);
+	mu_assert("failed: test_delete: check delete 7",
+			  bst->right->data == 9);
 
-// 	delete_bst_tree(&bst);
-// 	return 0;
-// }
+	delete_bst_tree(&bst);
+	return 0;
+}
 
-// static char *
-// test_delete_two_children_head() {
-// 	Node *bst = new_bst_node(5);
-// 	insert(bst, 4);
-// 	insert(bst, 6);
+static char *
+test_delete_two_children_head() {
+	Node *bst = new_bst_node(5);
+	insert(&bst, 4);
+	insert(&bst, 6);
 
-// 	delete(&bst, 5);
-// 	mu_assert("failed: test_delete: check delete head w/ 2 children",
-// 			  bst->data == 6 && bst->left->data == 4 && bst->right == NULL);
+	delete(&bst, 5);
+	mu_assert("failed: test_delete: check delete head w/ 2 children",
+			  bst->data == 6 && bst->left->data == 4 && bst->right == NULL);
 
-// 	insert(bst, 8);
-// 	insert(bst, 7);
-// 	insert(bst, 9);
+	insert(&bst, 8);
+	insert(&bst, 7);
+	insert(&bst, 9);
 
-// 	delete(&bst, 6);
-// 	mu_assert("failed: test_delete: check delete head w/ 2 children",
-// 			  bst->data == 7 && bst->left->data == 4);
-// 	mu_assert("failed: test_delete: check delete head w/ 2 children",
-// 			  bst->right->data == 8 && bst->right->right->data == 9);
-// 	mu_assert("failed: test_delete: check delete head w/ 2 children",
-// 			  bst->right->left == NULL);
+	delete(&bst, 6);
+	mu_assert("failed: test_delete: check delete head w/ 2 children",
+			  bst->data == 7 && bst->left->data == 4);
+	mu_assert("failed: test_delete: check delete head w/ 2 children",
+			  bst->right->data == 8 && bst->right->right->data == 9);
+	mu_assert("failed: test_delete: check delete head w/ 2 children",
+			  bst->right->left == NULL);
 
-// 	delete_bst_tree(&bst);
-// 	return 0;
-// }
+	delete_bst_tree(&bst);
+	return 0;
+}
 
-// static char *
-// test_delete_two_children() {
+static char *
+test_delete_two_children() {
 
-// 	Node *bst = new_bst_node(6);
+	Node *bst = new_bst_node(6);
 
-// 	insert(bst, 4);
-// 	insert(bst, 8);
-// 	insert(bst, 7);
-// 	insert(bst, 9);
+	insert(&bst, 4);
+	insert(&bst, 8);
+	insert(&bst, 7);
+	insert(&bst, 9);
 
-// 	delete(&bst, 8);
-// 	mu_assert("failed: test_delete: check delete right w/ 2 children",
-// 			  bst->data == 6 && bst->left->data == 4);
-// 	mu_assert("failed: test_delete: check delete right w/ 2 children",
-// 			  bst->right->data == 9 && bst->right->left->data == 7);
-// 	mu_assert("failed: test_delete: check delete right w/ 2 children",
-// 			  bst->right->right == NULL);
+	delete(&bst, 8);
+	mu_assert("failed: test_delete: check delete right w/ 2 children",
+			  bst->data == 6 && bst->left->data == 4);
+	mu_assert("failed: test_delete: check delete right w/ 2 children",
+			  bst->right->data == 9 && bst->right->left->data == 7);
+	mu_assert("failed: test_delete: check delete right w/ 2 children",
+			  bst->right->right == NULL);
 
-// 	delete_bst_tree(&bst);
-// 	bst = new_bst_node(10);
-// 	insert(bst, 5);
-// 	insert(bst, 8);
-// 	insert(bst, 2);
-// 	insert(bst, 7);
-// 	insert(bst, 6);
-// 	insert(bst, 9);
+	delete_bst_tree(&bst);
+	bst = new_bst_node(10);
+	insert(&bst, 5);
+	insert(&bst, 8);
+	insert(&bst, 2);
+	insert(&bst, 7);
+	insert(&bst, 6);
+	insert(&bst, 9);
 
-// 	delete(&bst, 5);
-// 	mu_assert("failed: test_delete: check delete left w/ 2 children",
-// 			  bst->left->data == 6 && bst->left->left->data == 2);
-// 	mu_assert("failed: test_delete: check delete left w/ 2 children",
-// 			  bst->left->right->data == 8 && bst->left->right->left->data == 7);
-// 	mu_assert("failed: test_delete: check delete left w/ 2 children",
-// 			  bst->left->right->right->data == 9);
+	delete(&bst, 5);
+	mu_assert("failed: test_delete: check delete left w/ 2 children",
+			  bst->left->data == 6 && bst->left->left->data == 2);
+	mu_assert("failed: test_delete: check delete left w/ 2 children",
+			  bst->left->right->data == 8 && bst->left->right->left->data == 7);
+	mu_assert("failed: test_delete: check delete left w/ 2 children",
+			  bst->left->right->right->data == 9);
 
-// 	delete_bst_tree(&bst);
-// 	return 0;
-// }
+	delete_bst_tree(&bst);
+	return 0;
+}
 
-// static char *
-// test_delete_bst_tree() {
+static char *
+test_delete_bst_tree() {
 
-// 	Node *bst = new_bst_node(10);
-// 	insert(bst, 5);
-// 	insert(bst, 14);
-// 	insert(bst, 12);
-// 	insert(bst, 15);
-// 	insert(bst, 13);
-// 	insert(bst, 8);
-// 	insert(bst, 7);
-// 	insert(bst, 9);
-// 	insert(bst, 3);
-// 	insert(bst, 2);
-// 	insert(bst, 1);
+	Node *bst = new_bst_node(10);
+	insert(&bst, 5);
+	insert(&bst, 14);
+	insert(&bst, 12);
+	insert(&bst, 15);
+	insert(&bst, 13);
+	insert(&bst, 8);
+	insert(&bst, 7);
+	insert(&bst, 9);
+	insert(&bst, 3);
+	insert(&bst, 2);
+	insert(&bst, 1);
 
-// 	delete_bst_tree(&bst);
-// 	mu_assert("failed: test_delete_bst_tree: deletion failed",
-// 			  bst == NULL);
+	delete_bst_tree(&bst);
+	mu_assert("failed: test_delete_bst_tree: deletion failed",
+			  bst == NULL);
 
-// 	return 0;
-// }
+	return 0;
+}
 
-// static char *
-// test_build_bst_tree_null_data() {
-// 	mu_assert("failed: test_build_bst_tree_null_data failed",
-// 			  build_bst_tree(NULL, 1) == NULL);
+static char *
+test_build_bst_tree_null_data() {
+	mu_assert("failed: test_build_bst_tree_null_data failed",
+			  build_bst_tree(NULL, 1) == NULL);
 
-// 	return 0;
-// }
+	return 0;
+}
 
-// static char *
-// test_build_bst_tree() {
-// 	int data[] = {5, 3, 7, 4, 8, 1, 9};
+static char *
+test_build_bst_tree() {
+	int data[] = {5, 3, 7, 4, 8, 1, 9};
 
-// 	Node *bst = NULL;
-// 	bst = build_bst_tree(data, 7);
-// 	mu_assert("failed: bst tree is NULL",
-// 			  bst != NULL);
+	Node *bst = NULL;
+	bst = build_bst_tree(data, 7);
+	mu_assert("failed: bst tree is NULL",
+			  bst != NULL);
 
-// 	return 0;
-// }
+	return 0;
+}
 
 static char *
 all_tests() {
@@ -353,12 +353,12 @@ all_tests() {
 	mu_run_test(test_search);
 	mu_run_test(test_find_minimum);
 	mu_run_test(test_delete_no_children);
-	// mu_run_test(test_delete_one_child);
-	// mu_run_test(test_delete_two_children_head);
-	// mu_run_test(test_delete_two_children);
-	// mu_run_test(test_delete_bst_tree);
-	// mu_run_test(test_build_bst_tree_null_data);
-	// mu_run_test(test_build_bst_tree);
+	mu_run_test(test_delete_one_child);
+	mu_run_test(test_delete_two_children_head);
+	mu_run_test(test_delete_two_children);
+	mu_run_test(test_delete_bst_tree);
+	mu_run_test(test_build_bst_tree_null_data);
+	mu_run_test(test_build_bst_tree);
 	return 0;
 }
 

@@ -1,5 +1,5 @@
-#ifndef BST_SEEN
-#define BST_SEEN
+#ifndef BST_H
+#define BST_H
 
 typedef struct Node
 {

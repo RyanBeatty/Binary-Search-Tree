@@ -4,13 +4,19 @@
 
 Node *
 new_bst_node(int data) {
-	// creates and initializes a new Node object
-	// or returns NULL if calloc fails
+	/* 
+	* creates and initializes a new Node object
+	* with the passed in data
+	*
+	* RETURNS: pointer to new Node object or NULL on failure
+	*/
 	Node *new_bst = NULL;
 
-	if( (new_bst = (Node *) calloc(1, sizeof(Node))) == NULL)
+	// if calloc failed, return NULL
+	if((new_bst = (Node *) calloc(1, sizeof(Node))) == NULL)
 		return NULL;
 
+	// initialize Node object attributes
 	new_bst->data = data;
 	new_bst->left = NULL;
 	new_bst->right = NULL;
@@ -19,7 +25,16 @@ new_bst_node(int data) {
 
 Node *
 build_bst_tree(int *data_set, int set_size) {
+	/*
+	* takes an array of data objects and
+	* builds a new bst tree
+	*
+	* RETURNS: a pointer to the root node
+	*		   of the bst tree. or NULL on
+	*		   failure
+	*/
 
+	// no input
 	if(data_set == NULL)
 		return NULL;
 
@@ -27,8 +42,10 @@ build_bst_tree(int *data_set, int set_size) {
 	int i = 0;
 	for(; i < set_size; ++i)
 	{
+		// insert next data object
 		if(insert(&root, data_set[i]) < 0)
 		{
+			// insert failed, delete tree
 			delete_bst_tree(&root);
 			return NULL;
 		}
@@ -39,16 +56,26 @@ build_bst_tree(int *data_set, int set_size) {
 
 void
 delete_bst_tree(Node **root) {
-	// deletes entire bst tree
-	// root should be NULL afterwards
+	/* 
+	* deletes entire bst tree
+	* root should be NULL afterwards
+	*
+	* RETURNS: VOID
+	*/
 
+	// no input
 	if(root == NULL)
 		return ;
 
+	// delete all nodes in tree
 	while(*root != NULL)
 		delete(root, (*root)->data);
 }
 
+/*******************************************************
+* OLD INSERT METHOD.
+* TO DO: REFACTOR TO ALLOW INSERT AT HEAD
+*******************************************************/
 // int
 // insert(Node *head, int data) {
 // 	// inserts new node into tree
@@ -140,9 +167,12 @@ insert(Node **cur_node, int target) {
 
 int
 search(Node *root, int target) {
-	// Search through tree for target
-	// Return 1 if target is in tree or
-	// 0 otherwise
+	/*
+	* Search through tree for target
+	*
+	* RETURNS: 1 if target is in tree or
+	* 		   0 otherwise
+	*/
 
 	Node *cur_node = root;
 	while(cur_node != NULL)
@@ -166,8 +196,12 @@ search(Node *root, int target) {
 
 void
 delete(Node **root, int target) {
-	/* Recursively search through tree and
-	   Remove Node with target data */
+	/* 
+	* Recursively search through tree and
+	* Remove Node with target data 
+	*
+	* RETURNS: VOID
+	*/
 
 	if(root == NULL || *root == NULL)
 		return ;
@@ -218,8 +252,14 @@ delete(Node **root, int target) {
 
 int
 find_minimum(Node *root) {
-	/* returns smallest data element in tree
-	   NOTE: breaks if passed a NULL root node */
+	/* 
+	* find smallest data element in left
+	* subtree of a node
+	*
+	* NOTE: breaks if passed a NULL root node
+	* NOTE: used only in delete()
+	* RETURNS: value of smalles node in tree
+	*/
 
 	while(1)
 	{

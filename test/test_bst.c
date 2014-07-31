@@ -339,6 +339,21 @@ test_build_bst_tree() {
 	mu_assert("failed: bst tree is NULL",
 			  bst != NULL);
 
+	mu_assert("failed: build_bst_tree",
+			  search(bst, 5) == 1);
+	mu_assert("failed: build_bst_tree",
+			  search(bst, 3) == 1);
+	mu_assert("failed: build_bst_tree",
+			  search(bst, 7) == 1);
+	mu_assert("failed: build_bst_tree",
+			  search(bst, 4) == 1);
+	mu_assert("failed: build_bst_tree",
+			  search(bst, 8) == 1);
+	mu_assert("failed: build_bst_tree",
+			  search(bst, 1) == 1);
+	mu_assert("failed: build_bst_tree",
+			  search(bst, 9) == 1);
+
 	return 0;
 }
 
